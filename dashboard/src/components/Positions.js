@@ -1,14 +1,8 @@
-import React, { useEffect } from "react";
-import axios from 'axios';
-import { useState } from "react";
-const Positions = () => {
-  let [positions , setPositions] = useState([]);
+import React from "react";
 
-useEffect(()=>{
-  axios.get("https://backend--soz4.onrender.com/getPositions").then((res)=>{
-    setPositions(res.data);
-  });
-},[])
+import { positions } from "../data/data";
+
+const Positions = () => {
   return (
     <>
       <h3 className="title">Positions ({positions.length})</h3>

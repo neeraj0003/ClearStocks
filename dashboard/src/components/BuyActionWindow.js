@@ -1,33 +1,29 @@
-import React, { useState, useContext } from "react"; 
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
 import axios from "axios";
 
-import GeneralContext from "./GeneralContext"; 
+import GeneralContext from "./GeneralContext";
 
 import "./BuyActionWindow.css";
 
 const BuyActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0.0);
-  const { closeBuyWindow } = useContext(GeneralContext);
 
-  const handleBuyClick = async () => {
-    try {
-      await axios.post("https://backend-z\\-soz4.onrender.com/newOrder", {
-        name: uid,
-        qty: stockQuantity,
-        price: stockPrice,
-        mode: "BUY",
-      });
+  const handleBuyClick = () => {
+    axios.post("http://localhost:3002/newOrder", {
+      name: uid,
+      qty: stockQuantity,
+      price: stockPrice,
+      mode: "BUY",
+    });
 
-      closeBuyWindow();
-    } catch (err) {
-      console.error("Buy failed", err);
-    }
+    GeneralContext.closeBuyWindow();
   };
 
   const handleCancelClick = () => {
-    closeBuyWindow(); // ✅ now it works
+    GeneralContext.closeBuyWindow();
   };
 
   return (
